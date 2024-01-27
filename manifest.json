@@ -1,0 +1,25 @@
+{
+  "author": "Emanuele Triuzzi",
+  "name": "Tab Shortcuts",
+  "version": "1.0",
+
+  "background": { "service_worker": "background.js" },
+  "manifest_version": 3,
+
+  "commands": {
+    "duplicateTab": {
+      "suggested_key": {
+        "mac": "MacCtrl+Shift+D",
+        "default": "Ctrl+Shift+D"
+      },
+      "description": "Duplicate active tab"
+    },
+    "pinTab": {
+      "suggested_key": {
+        "mac": "MacCtrl+Shift+P",
+        "default": "Ctrl+Shift+P"
+      },
+      "description": "Pin active tab"
+    }
+  }
+}
