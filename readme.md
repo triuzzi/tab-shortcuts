@@ -17,7 +17,7 @@ Best if you use in combination with the default shortcuts:
 
 ## ⚙️ Installation
 
-1. Download and extract the ZIP file.
+1. Download and extract the ZIP file. [Click here](https://github.com/triuzzi/tab-shortcuts/archive/refs/tags/1.1.zip) for the latest release.
 1. Go in the browser settings (`Command + ,`), then *"Extensions"*.
 1. On the top right, enable *"Developer mode"*.
 1. Press the *"Load unpacked"* button. Navigate to the extracted folder, and confirm.
