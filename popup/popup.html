@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab Shortcuts</title>
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --hover-color: #e8f0fe;
+            --border-color: #dadce0;
+            --text-color: #202124;
+            --secondary-text: #5f6368;
+        }
+
+        body {
+            width: 220px;
+            padding: 12px;
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            color: var(--text-color);
+        }
+
+        h1 {
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0 0 12px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            border: none;
+            border-radius: 4px;
+            background-color: transparent;
+            cursor: pointer;
+            font-size: 14px;
+            text-align: left;
+            color: var(--text-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--hover-color);
+        }
+
+        button:focus {
+            outline: 2px solid var(--primary-color);
+        }
+
+        .keyboard {
+            font-size: 12px;
+            color: var(--secondary-text);
+            padding: 2px 6px;
+            border-radius: 4px;
+            background-color: #f1f3f4;
+        }
+
+        .footer {
+            margin-top: 12px;
+            font-size: 11px;
+            color: var(--secondary-text);
+            text-align: center;
+            padding-top: 8px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .config-link {
+            display: block;
+            padding: 8px 0;
+            text-align: center;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .config-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Tab Shortcuts</h1>
+
+    <button id="duplicateTab">
+        Duplicate Tab
+        <span class="keyboard">Loading...</span>
+    </button>
+
+    <button id="pinTab">
+        Pin/Unpin Tab
+        <span class="keyboard">Loading...</span>
+    </button>
+
+    <button id="collapseTranslations">
+        Collapse Translations
+        <span class="keyboard">Loading...</span>
+    </button>
+
+    <div class="config-link" id="configureShortcuts">
+        ⚙️ Configure Shortcuts
+    </div>
+
+    <div class="footer">
+        v1.1 &bull; Tab Shortcuts Extension
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
