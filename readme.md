@@ -1,27 +1,59 @@
-# 🗂️ Tab shortcuts
+# 🗂️ Tab Shortcuts Extension
 
-## 🛠️ Functionalities
+A Chrome extension that enhances browser productivity with keyboard shortcuts and UI controls.
 
-Currently, the extension implements the following shortcuts:
+## 🛠️ Features
 
-- **Pin tab**: Pins the current active tab (default shortcut `Ctrl + Shift + P`).
-- **Duplicate tab**: Duplicates the current active tab to the right (default shortcut: `Ctrl + Shift + P`).
+This extension provides three main functionalities:
 
-Best if you use in combination with the default shortcuts:
+- **Duplicate Tab**: Creates a duplicate of the current active tab (shortcut: `Ctrl+Shift+D`)
+- **Pin Tab**: Toggles the pinned state of the current active tab (shortcut: `Ctrl+Shift+P`)
+- **Collapse Translation Files**: On GitHub PR pages, collapses all translation files (*.json with 2-letter language codes) to reduce visual clutter (shortcut: `Ctrl+Shift+T`)
 
-- **Next tab**: Switch the current active tab to the next (right) one (default shortcut `Ctrl + Tab`).
-- **Previous tab**: Switch the current active tab to the previous (left) one (default shortcut `Ctrl + Shift + Tab`).
-- **New tab**: Creates a new tab and makes it active (default shortcut `Command + T`).
-- **Close tab**: Closes the active tab and makes active the last active tab (default shortcut `Command + W`).
-- **Switch to i-th tab**: Changes the active tab to the i-th one, where $i \in[0, 9]$.
+All features can be accessed via:
+- Keyboard shortcuts
+- Extension popup menu (click the extension icon)
+
+## 💻 Usage
+
+### For General Tab Management
+
+- Use `Ctrl+Shift+D` to duplicate the current tab
+- Use `Ctrl+Shift+P` to pin or unpin the current tab
+
+### For GitHub Translation Files
+
+When reviewing Pull Requests on GitHub with many translation files (like `en.json`, `de.json`, etc.):
+
+1. Navigate to the PR page
+2. Press `Ctrl+Shift+T` or click the extension icon and select "Collapse Translations"
+3. All translation files will be collapsed, making it easier to focus on code changes
 
 ## ⚙️ Installation
 
-1. Download and extract the ZIP file. [Click here](https://github.com/triuzzi/tab-shortcuts/archive/refs/tags/1.1.zip) for the latest release.
-1. Go in the browser settings (`Command + ,`), then *"Extensions"*.
-1. On the top right, enable *"Developer mode"*.
-1. Press the *"Load unpacked"* button. Navigate to the extracted folder, and confirm.
-1. If needed, navigate to the *"Shortcuts"* tab and edit the default ones.
+1. Download and extract the ZIP file
+2. Go to Chrome settings (`chrome://extensions/`)
+3. Enable "Developer mode" in the top-right corner
+4. Click "Load unpacked" and select the extracted folder
+5. The extension is now installed and ready to use
+6. Optional: Navigate to the Extensions > Keyboard Shortcuts menu to customize shortcuts
+
+## 🔧 Technical Details
+
+This extension uses:
+- Chrome Extension Manifest V3
+- Background service worker for tab operations
+- Content scripts for GitHub page interaction
+- No external dependencies or network requests
+
+## 📋 Version History
+
+- **v1.2**: Added GitHub translation file collapsing feature and popup interface
+- **v1.1**: Initial release with tab duplication and pinning functionality
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🚀 Conclusions
 

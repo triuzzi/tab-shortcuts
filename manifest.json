@@ -1,12 +1,40 @@
 {
   "author": "Emanuele Triuzzi",
-  "description": "Add keyboard shortcuts to duplicate and pin tabs. No internet access needed. github.com/triuzzi/tab-shortcuts",
+  "description": "Adds keyboard shortcuts for duplicating tabs, pinning tabs, and collapsing translation files on GitHub. No internet access needed.",
   "name": "Tab Shortcuts",
-  "version": "1.0",
+  "version": "1.2",
 
   "background": { "service_worker": "background.js" },
   "manifest_version": 3,
 
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
+    }
+  },
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "commands"
+  ],
+  "host_permissions": [
+    "*://github.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://github.com/*"
+      ],
+      "js": [
+        "github-file-manager.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
   "commands": {
     "duplicateTab": {
       "suggested_key": {
@@ -21,6 +49,13 @@
         "default": "Ctrl+Shift+P"
       },
       "description": "Pin active tab"
+    },
+    "collapseTranslations": {
+      "suggested_key": {
+        "mac": "MacCtrl+Shift+T",
+        "default": "Ctrl+Shift+T"
+      },
+      "description": "Collapse translation files on GitHub"
     }
   },
 
