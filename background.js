@@ -33,6 +33,16 @@ async function collapseTranslationFilesOnGithub() {
     }
 }
 
+async function convertRelativeTimeOnGithub() {
+    const activeTab = await getActiveTab();
+
+    try {
+        chrome.tabs.sendMessage(activeTab.id, { action: 'convertRelativeTime' });
+    } catch (error) {
+        console.error("Error in convertRelativeTime:", error);
+    }
+}
+
 /**
  * Helper function to get the active tab
  */
@@ -49,6 +59,8 @@ chrome.commands.onCommand.addListener(async (command) => {
             return pinTab();
         case 'collapseTranslations':
             return collapseTranslationFilesOnGithub();
+        case 'convertRelativeTime':
+            return convertRelativeTimeOnGithub();
     }
 });
 
@@ -64,6 +76,9 @@ chrome.runtime.onMessage.addListener((message) => {
                 break;
             case 'collapseTranslations':
                 collapseTranslationFilesOnGithub();
+                break;
+            case 'convertRelativeTime':
+                convertRelativeTimeOnGithub();
                 break;
         }
     }

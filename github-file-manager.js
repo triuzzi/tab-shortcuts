@@ -1,12 +1,16 @@
-// Handles toggling reviewed status of translation files in GitHub PRs
 (() => {
-    // Setup message listener
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-        if (message.action === 'collapseTranslations') {
-            const count = toggleTranslationFiles();
-            sendResponse({ count: count });
+        switch (message.action) {
+            case 'collapseTranslations':
+                const count = toggleTranslationFiles();
+                sendResponse({ count: count });
+                break;
+            case 'convertRelativeTime':
+                const convertedCount = convertRelativeTimeToAbsolute();
+                sendResponse({ count: convertedCount });
+                break;
         }
-        return true; // Keep message channel open for async response
+        return true;
     });
 })();
 
@@ -17,7 +21,6 @@ function toggleTranslationFiles() {
     fileLinks.forEach(fileLink => {
         const filename = fileLink.textContent.trim() || fileLink.getAttribute('title') || '';
 
-        // Check if file matches xx.json pattern where xx is a two-letter language code
         if (/\/[a-z]{2}\.json$|^[a-z]{2}\.json$/.test(filename)) {
             translationFilesCount++;
 
@@ -54,7 +57,7 @@ function findFileContainer(fileLink) {
 
     if (!fileContainer) {
         let el = fileLink;
-        // Traverse up to 10 levels to find container
+
         for (let i = 0; i < 10; i++) {
             el = el.parentElement;
             if (!el) break;
@@ -71,7 +74,6 @@ function findFileContainer(fileLink) {
 }
 
 function toggleFileReviewStatus(fileContainer) {
-    // Try to find checkbox in file actions
     const fileActions = fileContainer.querySelector('.file-actions');
     if (fileActions) {
         const form = fileActions.querySelector('.js-toggle-user-reviewed-file-form');
@@ -89,7 +91,7 @@ function toggleFileReviewStatus(fileContainer) {
         }
     }
 
-    // Try alternative selectors if above method fails
+
     const checkboxSelectors = [
         'input.js-reviewed-checkbox[type="checkbox"]',
         'label.js-reviewed-toggle input[type="checkbox"]',
@@ -111,7 +113,6 @@ function toggleFileReviewStatus(fileContainer) {
         }
     }
 
-    // Fallback to GitHub API
     try {
         const filePath = getFilePath(fileContainer);
         if (filePath) {
@@ -127,7 +128,6 @@ function toggleFileReviewStatus(fileContainer) {
 }
 
 function getFilePath(fileContainer) {
-    // Try multiple methods to get file path
     let filePath = fileContainer.getAttribute('data-path');
     if (filePath) return filePath;
 
@@ -140,4 +140,24 @@ function getFilePath(fileContainer) {
     }
 
     return null;
+}
+
+function convertRelativeTimeToAbsolute() {
+    const elements = document.querySelectorAll("relative-time");
+    let convertedCount = 0;
+
+    elements.forEach(function (el) {
+        const absoluteTime = document.createElement("absolute-time");
+
+        for (let attr of el.attributes) {
+            absoluteTime.setAttribute(attr.name, attr.value);
+        }
+
+        absoluteTime.innerHTML = el.innerHTML;
+
+        el.parentNode.replaceChild(absoluteTime, el);
+        convertedCount++;
+    });
+
+    return convertedCount;
 } 

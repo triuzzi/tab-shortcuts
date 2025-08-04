@@ -27,7 +27,8 @@ function setupButtonHandlers() {
     const buttons = {
         'duplicateTab': executeDuplicateTab,
         'pinTab': executePinTab,
-        'collapseTranslations': executeCollapseTranslations
+        'collapseTranslations': executeCollapseTranslations,
+        'convertRelativeTime': executeConvertRelativeTime
     };
 
     // Attach click handlers to buttons
@@ -58,6 +59,10 @@ function executePinTab() {
 
 function executeCollapseTranslations() {
     sendCommandAndClose('collapseTranslations');
+}
+
+function executeConvertRelativeTime() {
+    sendCommandAndClose('convertRelativeTime');
 }
 
 function sendCommandAndClose(command) {

@@ -1,8 +1,8 @@
 {
   "author": "Emanuele Triuzzi",
-  "description": "Adds keyboard shortcuts for duplicating tabs, pinning tabs, and collapsing translation files on GitHub. No internet access needed.",
+  "description": "Adds keyboard shortcuts for duplicating tabs, pinning tabs, collapsing translation files, and converting relative time to absolute time on GitHub. No internet access needed.",
   "name": "Tab Shortcuts",
-  "version": "1.2",
+  "version": "1.3",
 
   "background": { "service_worker": "background.js" },
   "manifest_version": 3,
@@ -56,6 +56,13 @@
         "default": "Ctrl+Shift+T"
       },
       "description": "Collapse translation files on GitHub"
+    },
+    "convertRelativeTime": {
+      "suggested_key": {
+        "mac": "MacCtrl+Shift+O",
+        "default": "Ctrl+Shift+O"
+      },
+      "description": "Convert relative time to absolute time on GitHub"
     }
   },
 
