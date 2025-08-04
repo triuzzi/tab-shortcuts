@@ -1,14 +1,15 @@
 # 🗂️ Tab Shortcuts Extension
 
-A Chrome extension that enhances browser productivity with keyboard shortcuts and UI controls.
+A Chrome extension that enhances browser productivity with keyboard shortcuts and UI controls for tab management and GitHub workflow optimization.
 
 ## 🛠️ Features
 
-This extension provides three main functionalities:
+This extension provides four main functionalities:
 
 - **Duplicate Tab**: Creates a duplicate of the current active tab (shortcut: `Ctrl+Shift+D`)
 - **Pin Tab**: Toggles the pinned state of the current active tab (shortcut: `Ctrl+Shift+P`)
 - **Collapse Translation Files**: On GitHub PR pages, collapses all translation files (*.json with 2-letter language codes) to reduce visual clutter (shortcut: `Ctrl+Shift+T`)
+- **Convert Relative Time**: On GitHub pages, converts relative time stamps (like "2 hours ago") to absolute time format (like "10 September 2025, 10:15") (shortcut: `Ctrl+Shift+A`)
 
 All features can be accessed via:
 - Keyboard shortcuts
@@ -29,6 +30,14 @@ When reviewing Pull Requests on GitHub with many translation files (like `en.jso
 2. Press `Ctrl+Shift+T` or click the extension icon and select "Collapse Translations"
 3. All translation files will be collapsed, making it easier to focus on code changes
 
+### For GitHub Time Conversion
+
+When browsing GitHub and want to see exact timestamps instead of relative times:
+
+1. Navigate to any GitHub page with relative timestamps (issues, PRs, commits, etc.)
+2. Press `Ctrl+Shift+O` or click the extension icon and select "Convert Time to Absolute"
+3. All relative times (like "2 hours ago") will be converted to absolute format (like "10 September 2025, 10:15")
+
 ## ⚙️ Installation
 
 1. Download and extract the ZIP file
@@ -48,6 +57,7 @@ This extension uses:
 
 ## 📋 Version History
 
+- **v1.3**: Added GitHub relative time to absolute time conversion feature
 - **v1.2**: Added GitHub translation file collapsing feature and popup interface
 - **v1.1**: Initial release with tab duplication and pinning functionality
 
