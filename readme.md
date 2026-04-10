@@ -61,6 +61,7 @@ This extension uses:
 
 ## 📋 Version History
 
+- **v1.5**: Chrome Web Store release
 - **v1.4**: Added prevent tab close feature
 - **v1.3**: Added GitHub relative time to absolute time conversion feature
 - **v1.2**: Added GitHub translation file collapsing feature and popup interface
