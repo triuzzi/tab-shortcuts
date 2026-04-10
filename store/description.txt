@@ -1,0 +1,38 @@
+Tab Shortcuts adds missing keyboard shortcuts and productivity features to Chrome.
+
+FEATURES
+
+Pin Tab
+Toggles the pinned state of the current tab.
+Default shortcut: Ctrl+Shift+P (Mac: Control+Shift+P)
+
+Duplicate Tab
+Creates a copy of the current tab.
+Default shortcut: Ctrl+Shift+D (Mac: Control+Shift+D)
+
+Prevent Tab Close
+Prevents the current tab from being accidentally closed. Toggle it on, and Chrome will ask for confirmation before closing the tab. Configure your own shortcut via chrome://extensions/shortcuts.
+
+Collapse Translation Files (GitHub)
+On GitHub Pull Request pages, collapses all translation files (e.g. en.json, de.json) so you can focus on the actual code changes. Configure your own shortcut via chrome://extensions/shortcuts.
+
+Convert Relative Time (GitHub)
+On any GitHub page, converts relative timestamps like "2 hours ago" into absolute format like "10 September 2025, 10:15". Configure your own shortcut via chrome://extensions/shortcuts.
+
+HOW TO USE
+
+All features are accessible via:
+– Keyboard shortcuts (configurable at chrome://extensions/shortcuts)
+– The extension popup (click the extension icon)
+
+WORKS WELL WITH DEFAULT CHROME SHORTCUTS
+
+– Next tab: Ctrl+Tab
+– Previous tab: Ctrl+Shift+Tab
+– New tab: Ctrl+T (Mac: Cmd+T)
+– Close tab: Ctrl+W (Mac: Cmd+W)
+– Switch to nth tab: Ctrl+1 through Ctrl+9
+
+PRIVACY
+
+This extension operates entirely locally. No data is collected, stored, or transmitted. No analytics, no tracking, no network requests. See the full privacy policy linked on this page.
