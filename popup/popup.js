@@ -1,4 +1,3 @@
-// Initialize event listeners when DOM is loaded
 document.addEventListener('DOMContentLoaded', initializePopup);
 
 function initializePopup() {
@@ -6,7 +5,6 @@ function initializePopup() {
     loadCurrentShortcuts();
 }
 
-// Fetch and display current configured shortcuts
 function loadCurrentShortcuts() {
     if (chrome.commands && chrome.commands.getAll) {
         chrome.commands.getAll(commands => {
@@ -28,10 +26,10 @@ function setupButtonHandlers() {
         'duplicateTab': executeDuplicateTab,
         'pinTab': executePinTab,
         'collapseTranslations': executeCollapseTranslations,
-        'convertRelativeTime': executeConvertRelativeTime
+        'convertRelativeTime': executeConvertRelativeTime,
+        'preventClose': executePreventClose
     };
 
-    // Attach click handlers to buttons
     Object.keys(buttons).forEach(buttonId => {
         const element = document.getElementById(buttonId);
         if (element) {
@@ -39,7 +37,6 @@ function setupButtonHandlers() {
         }
     });
 
-    // Configure shortcuts link
     const configLink = document.getElementById('configureShortcuts');
     if (configLink) {
         configLink.addEventListener('click', () => {
@@ -63,6 +60,10 @@ function executeCollapseTranslations() {
 
 function executeConvertRelativeTime() {
     sendCommandAndClose('convertRelativeTime');
+}
+
+function executePreventClose() {
+    sendCommandAndClose('preventClose');
 }
 
 function sendCommandAndClose(command) {
