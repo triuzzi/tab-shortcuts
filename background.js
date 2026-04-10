@@ -30,12 +30,18 @@ async function convertRelativeTimeOnGithub() {
 
 async function preventCloseTab() {
     const activeTab = await getActiveTab();
-
-    try {
-        chrome.tabs.sendMessage(activeTab.id, { action: 'preventClose' });
-    } catch (error) {
-        console.error("Error in preventClose:", error);
-    }
+    await chrome.scripting.executeScript({
+        target: { tabId: activeTab.id },
+        func: () => {
+            if (window.__tsPreventClose) {
+                window.removeEventListener('beforeunload', window.__tsPreventClose);
+                delete window.__tsPreventClose;
+            } else {
+                window.__tsPreventClose = (e) => { e.preventDefault(); e.returnValue = ''; };
+                window.addEventListener('beforeunload', window.__tsPreventClose);
+            }
+        }
+    });
 }
 
 async function getActiveTab() {
