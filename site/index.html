@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab Shortcuts — Chrome Extension</title>
+    <meta name="description" content="Keyboard shortcuts for tab management and GitHub productivity. Pin, duplicate, prevent close, and more.">
+    <link rel="icon" type="image/png" href="icons/32.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <div class="window">
+            <div class="titlebar">
+                <div class="traffic-lights">
+                    <div class="traffic-light close"></div>
+                    <div class="traffic-light minimize"></div>
+                    <div class="traffic-light maximize"></div>
+                </div>
+                <div class="titlebar-title">Tab Shortcuts</div>
+            </div>
+            <div class="window-body">
+                <nav class="sidebar">
+                    <button class="nav-item active" data-page="features">Features</button>
+                    <button class="nav-item" data-page="install">Install</button>
+                    <a class="nav-item" href="privacy-policy/">Privacy</a>
+                </nav>
+                <main class="content" id="content">
+                    <div id="page-features" class="page">
+                        <h1>Tab Shortcuts</h1>
+                        <p>Missing keyboard shortcuts for Chrome. Tab management and GitHub productivity.</p>
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <div class="feature-header">
+                                    <span class="feature-name">Pin Tab</span>
+                                    <span class="kbd">Ctrl+Shift+P</span>
+                                </div>
+                                <p>Toggle the pinned state of the current tab.</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-header">
+                                    <span class="feature-name">Duplicate Tab</span>
+                                    <span class="kbd">Ctrl+Shift+D</span>
+                                </div>
+                                <p>Create a copy of the current tab.</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-header">
+                                    <span class="feature-name">Prevent Tab Close</span>
+                                    <span class="kbd">Configurable</span>
+                                </div>
+                                <p>Prevent the current tab from being accidentally closed.</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-header">
+                                    <span class="feature-name">Collapse Translations</span>
+                                    <span class="kbd">Configurable</span>
+                                </div>
+                                <p>On GitHub PRs, collapse translation files to focus on code.</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-header">
+                                    <span class="feature-name">Convert Relative Time</span>
+                                    <span class="kbd">Configurable</span>
+                                </div>
+                                <p>On GitHub, convert "2 hours ago" to absolute timestamps.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="page-install" class="page" style="display:none">
+                        <h1>Install</h1>
+                        <p>Available on the Chrome Web Store.</p>
+                        <div class="link-list">
+                            <a href="https://chromewebstore.google.com/detail/tab-shortcuts/flljklemojjhaagdgadmlikblkmeakbf" class="link-item" target="_blank" rel="noopener noreferrer">
+                                Chrome Web Store
+                            </a>
+                            <a href="https://github.com/triuzzi/tab-shortcuts" class="link-item" target="_blank" rel="noopener noreferrer">
+                                GitHub (source code)
+                            </a>
+                        </div>
+                        <p>No data collected. No network requests. Runs entirely in your browser. Open source under MIT license.</p>
+                        <a href="https://github.com/triuzzi/tab-shortcuts" class="star-cta" target="_blank" rel="noopener noreferrer">&#9734; Star on GitHub</a>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll('.nav-item[data-page]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.nav-item[data-page]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.querySelectorAll('[id^="page-"]').forEach(p => p.style.display = 'none');
+                document.getElementById('page-' + btn.dataset.page).style.display = '';
+            });
+        });
+    </script>
+</body>
+</html>
