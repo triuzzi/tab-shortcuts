@@ -4,135 +4,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tab Shortcuts</title>
+    <title>tab-shortcuts</title>
     <style>
         :root {
-            --primary-color: #4285f4;
-            --hover-color: #e8f0fe;
-            --border-color: #dadce0;
-            --text-color: #202124;
-            --secondary-text: #5f6368;
+            --bg: #0b0f14;
+            --bg-elev: #11161d;
+            --fg: #c9d1d9;
+            --fg-dim: #8b949e;
+            --muted: #484f58;
+            --accent: #39ff14;
+            --accent-dim: #1f8f0f;
+            --cyan: #56b6c2;
+            --magenta: #e94c77;
+            --border: #1b2028;
         }
+
+        * { box-sizing: border-box; }
+
+        html, body { margin: 0; padding: 0; }
 
         body {
-            width: 220px;
-            padding: 12px;
-            margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 14px;
-            color: var(--text-color);
+            width: 300px;
+            font-family: "JetBrains Mono", "SF Mono", Menlo, Monaco, "Cascadia Code", "Courier New", monospace;
+            font-size: 12px;
+            line-height: 1.45;
+            color: var(--fg);
+            background: var(--bg);
+            border: 1px solid var(--accent-dim);
+            box-shadow:
+                0 0 0 1px #000 inset,
+                0 0 40px rgba(57, 255, 20, 0.08);
+            position: relative;
+            overflow: hidden;
         }
 
-        h1 {
-            font-size: 16px;
-            font-weight: 500;
-            margin: 0 0 12px 0;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-color);
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent 0 2px,
+                rgba(57, 255, 20, 0.025) 2px 3px
+            );
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        body::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(57, 255, 20, 0.06), transparent 60%);
+            pointer-events: none;
+            z-index: 40;
+        }
+
+        .titlebar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: var(--bg-elev);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            z-index: 60;
+        }
+        .titlebar .dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: #ff5f56;
+            box-shadow: 0 0 4px #ff5f5655;
+        }
+        .titlebar .dot:nth-child(2) { background: #ffbd2e; box-shadow: 0 0 4px #ffbd2e55; }
+        .titlebar .dot:nth-child(3) { background: #27c93f; box-shadow: 0 0 4px #27c93f55; }
+        .titlebar .title {
+            margin-left: 10px;
+            color: var(--fg-dim);
+            font-size: 11px;
+            letter-spacing: 0.3px;
+        }
+        .titlebar .title .tilde { color: var(--muted); }
+
+        .prompt {
+            padding: 10px 12px 4px;
+            font-size: 12px;
+            position: relative;
+            z-index: 60;
+        }
+        .prompt .user  { color: var(--cyan); }
+        .prompt .at    { color: var(--muted); }
+        .prompt .host  { color: var(--magenta); }
+        .prompt .path  { color: var(--fg-dim); }
+        .prompt .sigil { color: var(--accent); padding: 0 2px; }
+        .prompt .cmd   { color: var(--fg); }
+        .caret {
+            display: inline-block;
+            width: 7px; height: 13px;
+            background: var(--accent);
+            vertical-align: -2px;
+            margin-left: 2px;
+            box-shadow: 0 0 8px var(--accent);
+            animation: blink 1.05s steps(1) infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        h1 { display: none; }
+
+        .commands {
+            padding: 4px 0 6px;
+            position: relative;
+            z-index: 60;
         }
 
         button {
             width: 100%;
-            padding: 10px 12px;
-            margin-bottom: 8px;
+            padding: 6px 12px 6px 14px;
+            margin: 0;
             border: none;
-            border-radius: 4px;
-            background-color: transparent;
+            background: transparent;
             cursor: pointer;
-            font-size: 14px;
+            font-family: inherit;
+            font-size: 12px;
+            line-height: 1.4;
             text-align: left;
-            color: var(--text-color);
-            display: flex;
-            justify-content: space-between;
+            color: var(--fg);
+            display: grid;
+            grid-template-columns: 1fr auto;
             align-items: center;
-            transition: background-color 0.2s;
+            gap: 10px;
+            border-left: 2px solid transparent;
+            transition: background 80ms linear, border-color 80ms linear, color 80ms linear;
+            position: relative;
         }
-
-        button:hover {
-            background-color: var(--hover-color);
+        button .cmd { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        button .cmd::before {
+            content: "$ ";
+            color: var(--accent-dim);
+            margin-right: 2px;
         }
-
-        button:focus {
-            outline: 2px solid var(--primary-color);
+        button:hover, button:focus {
+            background: linear-gradient(90deg, rgba(57, 255, 20, 0.07), rgba(57, 255, 20, 0));
+            border-left-color: var(--accent);
+            color: var(--accent);
+            outline: none;
+        }
+        button:hover .cmd::before, button:focus .cmd::before {
+            color: var(--accent);
+        }
+        button:active {
+            background: rgba(57, 255, 20, 0.12);
         }
 
         .keyboard {
-            font-size: 12px;
-            color: var(--secondary-text);
-            padding: 2px 6px;
-            border-radius: 4px;
-            background-color: #f1f3f4;
-        }
-
-        .footer {
-            margin-top: 12px;
+            font-family: inherit;
             font-size: 11px;
-            color: var(--secondary-text);
-            text-align: center;
-            padding-top: 8px;
-            border-top: 1px solid var(--border-color);
+            color: var(--cyan);
+            padding: 1px 8px;
+            background: var(--bg-elev);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+        .keyboard.unbound {
+            color: var(--muted);
+            border-style: dashed;
         }
 
         .config-link {
             display: block;
-            padding: 8px 0;
-            text-align: center;
-            color: var(--primary-color);
-            text-decoration: none;
+            padding: 8px 12px;
+            font-family: inherit;
             font-size: 12px;
+            color: var(--cyan);
             cursor: pointer;
+            border-top: 1px dashed var(--border);
+            position: relative;
+            z-index: 60;
+            transition: background 80ms linear, color 80ms linear;
         }
-
+        .config-link::before {
+            content: "❯ ";
+            color: var(--accent);
+        }
         .config-link:hover {
-            text-decoration: underline;
+            background: rgba(86, 182, 194, 0.08);
+            color: var(--accent);
         }
+        .config-link:hover::before { color: var(--accent); }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 12px;
+            background: var(--bg-elev);
+            border-top: 1px solid var(--border);
+            font-size: 10px;
+            color: var(--fg-dim);
+            letter-spacing: 0.3px;
+            position: relative;
+            z-index: 60;
+        }
+        .footer .left  { color: var(--muted); }
+        .footer .left .hash { color: var(--accent-dim); }
+        .footer .right { color: var(--cyan); }
     </style>
 </head>
 
 <body>
-    <h1>Tab Shortcuts</h1>
+    <div class="titlebar">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="title">tab-shortcuts <span class="tilde">—</span> v1.6</span>
+    </div>
 
-    <button id="duplicateTab">
-        Duplicate Tab
-        <span class="keyboard">Loading...</span>
-    </button>
+    <div class="prompt">
+        <span class="user">etri</span><span class="at">@</span><span class="host">brave</span>
+        <span class="path">~/shortcuts</span>
+        <span class="sigil">%</span>
+        <span class="cmd">run</span><span class="caret"></span>
+    </div>
 
-    <button id="pinTab">
-        Pin/Unpin Tab
-        <span class="keyboard">Loading...</span>
-    </button>
+    <div class="commands">
+        <button id="duplicateTab">
+            <span class="cmd">duplicate-tab</span>
+            <span class="keyboard">Loading...</span>
+        </button>
 
-    <button id="collapseTranslations">
-        Collapse Translations
-        <span class="keyboard">Loading...</span>
-    </button>
+        <button id="pinTab">
+            <span class="cmd">pin-tab</span>
+            <span class="keyboard">Loading...</span>
+        </button>
 
-    <button id="convertRelativeTime">
-        Convert Time to Absolute
-        <span class="keyboard">Loading...</span>
-    </button>
+        <button id="newTabHere">
+            <span class="cmd">new-tab-here</span>
+            <span class="keyboard">Loading...</span>
+        </button>
 
-    <button id="preventClose">
-        Prevent Tab Close
-        <span class="keyboard">Loading...</span>
-    </button>
+        <button id="newTabHereBackground">
+            <span class="cmd">new-tab-here --bg</span>
+            <span class="keyboard">Loading...</span>
+        </button>
 
-    <button id="newTabHere">
-        New Tab Here
-        <span class="keyboard">Loading...</span>
-    </button>
+        <button id="preventClose">
+            <span class="cmd">prevent-close</span>
+            <span class="keyboard">Loading...</span>
+        </button>
 
-    <button id="newTabHereBackground">
-        New Tab Here (Background)
-        <span class="keyboard">Loading...</span>
-    </button>
+        <button id="collapseTranslations">
+            <span class="cmd">collapse-translations</span>
+            <span class="keyboard">Loading...</span>
+        </button>
+
+        <button id="convertRelativeTime">
+            <span class="cmd">convert-relative-time</span>
+            <span class="keyboard">Loading...</span>
+        </button>
+    </div>
 
     <div class="config-link" id="configureShortcuts">
-        ⚙️ Configure Shortcuts
+        configure --shortcuts
     </div>
 
     <div class="footer">
-        v1.6 &bull; Tab Shortcuts Extension
+        <span class="left"><span class="hash">#</span> @triuzzi</span>
+        <span class="right">v1.6</span>
     </div>
 
     <script src="popup.js"></script>
