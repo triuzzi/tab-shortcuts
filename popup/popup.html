@@ -89,33 +89,10 @@
         }
         .titlebar .title .tilde { color: var(--muted); }
 
-        .prompt {
-            padding: 10px 12px 4px;
-            font-size: 12px;
-            position: relative;
-            z-index: 60;
-        }
-        .prompt .user  { color: var(--cyan); }
-        .prompt .at    { color: var(--muted); }
-        .prompt .host  { color: var(--magenta); }
-        .prompt .path  { color: var(--fg-dim); }
-        .prompt .sigil { color: var(--accent); padding: 0 2px; }
-        .prompt .cmd   { color: var(--fg); }
-        .caret {
-            display: inline-block;
-            width: 7px; height: 13px;
-            background: var(--accent);
-            vertical-align: -2px;
-            margin-left: 2px;
-            box-shadow: 0 0 6px var(--accent-glow);
-            animation: blink 1.05s steps(1) infinite;
-        }
-        @keyframes blink { 50% { opacity: 0; } }
-
         h1 { display: none; }
 
         .commands {
-            padding: 4px 0 6px;
+            padding: 10px 0 8px;
             position: relative;
             z-index: 60;
         }
@@ -221,7 +198,8 @@
         .footer {
             display: flex;
             justify-content: space-between;
-            padding: 6px 12px;
+            align-items: center;
+            padding: 7px 12px;
             background: var(--bg-elev);
             border-top: 1px solid var(--border);
             font-size: 10px;
@@ -229,9 +207,15 @@
             letter-spacing: 0.3px;
             position: relative;
             z-index: 60;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 80ms linear, color 80ms linear;
         }
-        .footer .left  { color: var(--muted); }
-        .footer .left .hash { color: var(--accent); }
+        .footer:hover { background: rgba(21, 128, 61, 0.06); }
+        .footer:hover .left { color: var(--accent); }
+        .footer:hover .left .hash { color: var(--accent); }
+        .footer .left  { color: var(--muted); transition: color 80ms linear; }
+        .footer .left .hash { color: var(--accent); transition: color 80ms linear; }
         .footer .right { color: var(--cyan); }
     </style>
 </head>
@@ -242,13 +226,6 @@
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="title">tab-shortcuts <span class="tilde">—</span> v1.7</span>
-    </div>
-
-    <div class="prompt">
-        <span class="user">etri</span><span class="at">@</span><span class="host">brave</span>
-        <span class="path">~/shortcuts</span>
-        <span class="sigil">%</span>
-        <span class="cmd">run</span><span class="caret"></span>
     </div>
 
     <div class="commands">
@@ -292,8 +269,8 @@
         configure --shortcuts
     </div>
 
-    <div class="footer">
-        <span class="left"><span class="hash">#</span> @triuzzi</span>
+    <div class="footer" id="repoLink" title="Open on GitHub">
+        <span class="left"><span class="hash">#</span> @triuzzi/tab-shortcuts</span>
         <span class="right">v1.7</span>
     </div>
 
