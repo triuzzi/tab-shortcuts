@@ -27,7 +27,9 @@ function setupButtonHandlers() {
         'pinTab': executePinTab,
         'collapseTranslations': executeCollapseTranslations,
         'convertRelativeTime': executeConvertRelativeTime,
-        'preventClose': executePreventClose
+        'preventClose': executePreventClose,
+        'newTabHere': executeNewTabHere,
+        'newTabHereBackground': executeNewTabHereBackground
     };
 
     Object.keys(buttons).forEach(buttonId => {
@@ -64,6 +66,14 @@ function executeConvertRelativeTime() {
 
 function executePreventClose() {
     sendCommandAndClose('preventClose');
+}
+
+function executeNewTabHere() {
+    sendCommandAndClose('newTabHere');
+}
+
+function executeNewTabHereBackground() {
+    sendCommandAndClose('newTabHereBackground');
 }
 
 function sendCommandAndClose(command) {
