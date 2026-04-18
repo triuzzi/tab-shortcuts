@@ -5,6 +5,54 @@ function initializePopup() {
     loadCurrentShortcuts();
 }
 
+const MODIFIER_SYMBOLS = {
+    '⌃': 'Ctrl',
+    '⇧': 'Shift',
+    '⌥': 'Opt',
+    '⌘': 'Cmd',
+    '⎇': 'Alt'
+};
+
+function parseShortcut(shortcut) {
+    if (shortcut.includes('+')) {
+        return shortcut.split('+').map(s => s.trim()).filter(Boolean);
+    }
+    const parts = [];
+    let i = 0;
+    while (i < shortcut.length) {
+        const ch = shortcut[i];
+        if (MODIFIER_SYMBOLS[ch]) {
+            parts.push(MODIFIER_SYMBOLS[ch]);
+            i++;
+        } else {
+            parts.push(shortcut.slice(i));
+            break;
+        }
+    }
+    return parts;
+}
+
+function renderShortcut(container, shortcut) {
+    container.textContent = '';
+    if (!shortcut) {
+        container.classList.add('unset');
+        container.textContent = 'unset';
+        return;
+    }
+    container.classList.remove('unset');
+    parseShortcut(shortcut).forEach((key, i) => {
+        if (i > 0) {
+            const plus = document.createElement('span');
+            plus.className = 'plus';
+            plus.textContent = '+';
+            container.appendChild(plus);
+        }
+        const kbd = document.createElement('kbd');
+        kbd.textContent = key;
+        container.appendChild(kbd);
+    });
+}
+
 function loadCurrentShortcuts() {
     if (chrome.commands && chrome.commands.getAll) {
         chrome.commands.getAll(commands => {
@@ -13,13 +61,7 @@ function loadCurrentShortcuts() {
                 if (buttonElement) {
                     const shortcutSpan = buttonElement.querySelector('.keyboard');
                     if (shortcutSpan) {
-                        if (command.shortcut) {
-                            shortcutSpan.textContent = command.shortcut;
-                            shortcutSpan.classList.remove('unbound');
-                        } else {
-                            shortcutSpan.textContent = '<unbound>';
-                            shortcutSpan.classList.add('unbound');
-                        }
+                        renderShortcut(shortcutSpan, command.shortcut);
                     }
                 }
             });

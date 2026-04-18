@@ -4,272 +4,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tab-shortcuts</title>
+    <title>Tab Shortcuts</title>
     <style>
         :root {
-            --bg: #0b0f14;
-            --bg-elev: #11161d;
-            --fg: #c9d1d9;
-            --fg-dim: #8b949e;
-            --muted: #484f58;
-            --accent: #39ff14;
-            --accent-dim: #1f8f0f;
-            --cyan: #56b6c2;
-            --magenta: #e94c77;
-            --border: #1b2028;
+            --bg: #ffffff;
+            --bg-soft: #f9fafb;
+            --fg: #111827;
+            --fg-muted: #6b7280;
+            --fg-dim: #9ca3af;
+            --border: #e5e7eb;
+            --accent: #2563eb;
+            --accent-soft: #eff6ff;
+            --hover: #f3f4f6;
+            --kbd-bg: #f9fafb;
+            --kbd-border: #d1d5db;
+            --kbd-fg: #374151;
         }
 
         * { box-sizing: border-box; }
-
         html, body { margin: 0; padding: 0; }
 
         body {
             width: 300px;
-            font-family: "JetBrains Mono", "SF Mono", Menlo, Monaco, "Cascadia Code", "Courier New", monospace;
-            font-size: 12px;
-            line-height: 1.45;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            font-size: 13px;
             color: var(--fg);
             background: var(--bg);
-            border: 1px solid var(--accent-dim);
-            box-shadow:
-                0 0 0 1px #000 inset,
-                0 0 40px rgba(57, 255, 20, 0.08);
-            position: relative;
-            overflow: hidden;
         }
 
-        body::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent 0 2px,
-                rgba(57, 255, 20, 0.025) 2px 3px
-            );
-            pointer-events: none;
-            z-index: 50;
-        }
-
-        body::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 0%, rgba(57, 255, 20, 0.06), transparent 60%);
-            pointer-events: none;
-            z-index: 40;
-        }
-
-        .titlebar {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 12px;
-            background: var(--bg-elev);
+        .header {
+            padding: 14px 16px 10px;
             border-bottom: 1px solid var(--border);
-            position: relative;
-            z-index: 60;
         }
-        .titlebar .dot {
-            width: 10px; height: 10px; border-radius: 50%;
-            background: #ff5f56;
-            box-shadow: 0 0 4px #ff5f5655;
+        .header h1 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: -0.2px;
         }
-        .titlebar .dot:nth-child(2) { background: #ffbd2e; box-shadow: 0 0 4px #ffbd2e55; }
-        .titlebar .dot:nth-child(3) { background: #27c93f; box-shadow: 0 0 4px #27c93f55; }
-        .titlebar .title {
-            margin-left: 10px;
-            color: var(--fg-dim);
+        .header .subtitle {
+            margin-top: 2px;
             font-size: 11px;
-            letter-spacing: 0.3px;
+            color: var(--fg-muted);
+            letter-spacing: 0.1px;
         }
-        .titlebar .title .tilde { color: var(--muted); }
-
-        .prompt {
-            padding: 10px 12px 4px;
-            font-size: 12px;
-            position: relative;
-            z-index: 60;
-        }
-        .prompt .user  { color: var(--cyan); }
-        .prompt .at    { color: var(--muted); }
-        .prompt .host  { color: var(--magenta); }
-        .prompt .path  { color: var(--fg-dim); }
-        .prompt .sigil { color: var(--accent); padding: 0 2px; }
-        .prompt .cmd   { color: var(--fg); }
-        .caret {
-            display: inline-block;
-            width: 7px; height: 13px;
-            background: var(--accent);
-            vertical-align: -2px;
-            margin-left: 2px;
-            box-shadow: 0 0 8px var(--accent);
-            animation: blink 1.05s steps(1) infinite;
-        }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        h1 { display: none; }
 
         .commands {
-            padding: 4px 0 6px;
-            position: relative;
-            z-index: 60;
+            padding: 6px 0;
         }
 
         button {
             width: 100%;
-            padding: 6px 12px 6px 14px;
+            padding: 9px 16px;
             margin: 0;
             border: none;
             background: transparent;
             cursor: pointer;
             font-family: inherit;
-            font-size: 12px;
-            line-height: 1.4;
+            font-size: 13px;
             text-align: left;
             color: var(--fg);
-            display: grid;
-            grid-template-columns: 1fr auto;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            border-left: 2px solid transparent;
-            transition: background 80ms linear, border-color 80ms linear, color 80ms linear;
-            position: relative;
+            gap: 12px;
+            transition: background 100ms linear;
         }
-        button .cmd { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        button .cmd::before {
-            content: "$ ";
-            color: var(--accent-dim);
-            margin-right: 2px;
-        }
-        button:hover, button:focus {
-            background: linear-gradient(90deg, rgba(57, 255, 20, 0.07), rgba(57, 255, 20, 0));
-            border-left-color: var(--accent);
-            color: var(--accent);
-            outline: none;
-        }
-        button:hover .cmd::before, button:focus .cmd::before {
-            color: var(--accent);
-        }
-        button:active {
-            background: rgba(57, 255, 20, 0.12);
+        button:hover { background: var(--hover); }
+        button:focus { outline: none; background: var(--accent-soft); }
+        button .label {
+            font-weight: 500;
+            line-height: 1.3;
         }
 
         .keyboard {
-            font-family: inherit;
-            font-size: 11px;
-            color: var(--cyan);
-            padding: 1px 8px;
-            background: var(--bg-elev);
-            border: 1px solid var(--border);
-            border-radius: 2px;
-            white-space: nowrap;
-            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            flex-shrink: 0;
         }
-        .keyboard.unbound {
-            color: var(--muted);
-            border-style: dashed;
+        .keyboard kbd {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2px 7px;
+            min-width: 22px;
+            height: 20px;
+            font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--kbd-fg);
+            background: var(--kbd-bg);
+            border: 1px solid var(--kbd-border);
+            border-radius: 4px;
+            box-shadow: 0 1px 0 0 var(--kbd-border);
+            line-height: 1;
+        }
+        .keyboard .plus {
+            font-size: 10px;
+            color: var(--fg-dim);
+            margin: 0 1px;
+        }
+        .keyboard.unset {
+            font-size: 11px;
+            color: var(--fg-dim);
+            font-style: italic;
+            padding: 2px 6px;
         }
 
         .config-link {
-            display: block;
-            padding: 8px 12px;
-            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-top: 1px solid var(--border);
+            color: var(--accent);
             font-size: 12px;
-            color: var(--cyan);
+            font-weight: 500;
             cursor: pointer;
-            border-top: 1px dashed var(--border);
-            position: relative;
-            z-index: 60;
-            transition: background 80ms linear, color 80ms linear;
+            transition: background 100ms linear;
         }
-        .config-link::before {
-            content: "❯ ";
-            color: var(--accent);
-        }
-        .config-link:hover {
-            background: rgba(86, 182, 194, 0.08);
-            color: var(--accent);
-        }
-        .config-link:hover::before { color: var(--accent); }
+        .config-link:hover { background: var(--accent-soft); }
 
         .footer {
             display: flex;
             justify-content: space-between;
-            padding: 6px 12px;
-            background: var(--bg-elev);
+            padding: 8px 16px;
             border-top: 1px solid var(--border);
+            background: var(--bg-soft);
+            color: var(--fg-muted);
             font-size: 10px;
-            color: var(--fg-dim);
             letter-spacing: 0.3px;
-            position: relative;
-            z-index: 60;
         }
-        .footer .left  { color: var(--muted); }
-        .footer .left .hash { color: var(--accent-dim); }
-        .footer .right { color: var(--cyan); }
+        .footer .right { color: var(--fg-dim); }
     </style>
 </head>
 
 <body>
-    <div class="titlebar">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="title">tab-shortcuts <span class="tilde">—</span> v1.6</span>
-    </div>
-
-    <div class="prompt">
-        <span class="user">etri</span><span class="at">@</span><span class="host">brave</span>
-        <span class="path">~/shortcuts</span>
-        <span class="sigil">%</span>
-        <span class="cmd">run</span><span class="caret"></span>
+    <div class="header">
+        <h1>Tab Shortcuts</h1>
+        <div class="subtitle">Keyboard shortcuts for smart tab control</div>
     </div>
 
     <div class="commands">
         <button id="duplicateTab">
-            <span class="cmd">duplicate-tab</span>
+            <span class="label">Duplicate Tab</span>
             <span class="keyboard">Loading...</span>
         </button>
 
         <button id="pinTab">
-            <span class="cmd">pin-tab</span>
+            <span class="label">Pin / Unpin Tab</span>
             <span class="keyboard">Loading...</span>
         </button>
 
         <button id="newTabHere">
-            <span class="cmd">new-tab-here</span>
+            <span class="label">New Tab Here</span>
             <span class="keyboard">Loading...</span>
         </button>
 
         <button id="newTabHereBackground">
-            <span class="cmd">new-tab-here --bg</span>
+            <span class="label">New Tab Here (Background)</span>
             <span class="keyboard">Loading...</span>
         </button>
 
         <button id="preventClose">
-            <span class="cmd">prevent-close</span>
+            <span class="label">Prevent Tab Close</span>
             <span class="keyboard">Loading...</span>
         </button>
 
         <button id="collapseTranslations">
-            <span class="cmd">collapse-translations</span>
+            <span class="label">Collapse Translations</span>
             <span class="keyboard">Loading...</span>
         </button>
 
         <button id="convertRelativeTime">
-            <span class="cmd">convert-relative-time</span>
+            <span class="label">Convert Time to Absolute</span>
             <span class="keyboard">Loading...</span>
         </button>
     </div>
 
     <div class="config-link" id="configureShortcuts">
-        configure --shortcuts
+        <span>⚙</span><span>Configure Shortcuts</span>
     </div>
 
     <div class="footer">
-        <span class="left"><span class="hash">#</span> @triuzzi</span>
-        <span class="right">v1.6</span>
+        <span class="left">v1.6 · @triuzzi</span>
+        <span class="right">Tab Shortcuts</span>
     </div>
 
     <script src="popup.js"></script>
