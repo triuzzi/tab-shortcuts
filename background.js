@@ -28,6 +28,16 @@ async function convertRelativeTimeOnGithub() {
     }
 }
 
+async function newTabHere({ active } = { active: true }) {
+    const activeTab = await getActiveTab();
+    if (!activeTab) return;
+    return chrome.tabs.create({
+        active,
+        index: activeTab.index + 1,
+        openerTabId: activeTab.id,
+    });
+}
+
 async function preventCloseTab() {
     const activeTab = await getActiveTab();
     await chrome.scripting.executeScript({
@@ -60,6 +70,10 @@ chrome.commands.onCommand.addListener(async (command) => {
             return convertRelativeTimeOnGithub();
         case 'preventClose':
             return preventCloseTab();
+        case 'newTabHere':
+            return newTabHere({ active: true });
+        case 'newTabHereBackground':
+            return newTabHere({ active: false });
     }
 });
 
@@ -80,6 +94,12 @@ chrome.runtime.onMessage.addListener((message) => {
                 break;
             case 'preventClose':
                 preventCloseTab();
+                break;
+            case 'newTabHere':
+                newTabHere({ active: true });
+                break;
+            case 'newTabHereBackground':
+                newTabHere({ active: false });
                 break;
         }
     }

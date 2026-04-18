@@ -4,10 +4,12 @@ A Chrome extension that enhances browser productivity with keyboard shortcuts an
 
 ## 🛠️ Features
 
-This extension provides five main functionalities:
+This extension provides the following functionalities:
 
 - **Duplicate Tab**: Creates a duplicate of the current active tab (shortcut: `Ctrl+Shift+D`)
 - **Pin Tab**: Toggles the pinned state of the current active tab (shortcut: `Ctrl+Shift+P`)
+- **New Tab Here**: Opens a new tab immediately after the current one, linked to it as the opener so closing it returns focus to the original tab (shortcut: must be configured)
+- **New Tab Here (Background)**: Same as above, but the new tab opens in the background (shortcut: must be configured)
 - **Prevent Tab Close**: Prevents the current tab from being accidentally closed (shortcut: must be configured)
 - **Collapse Translation Files**: On GitHub PR pages, collapses all translation files (*.json with 2-letter language codes) to reduce visual clutter (shortcut: must be configured)
 - **Convert Relative Time**: On GitHub pages, converts relative time stamps (like "2 hours ago") to absolute time format (like "10 September 2025, 10:15") (shortcut: must be configured)
@@ -61,6 +63,7 @@ This extension uses:
 
 ## 📋 Version History
 
+- **v1.6**: Added "New Tab Here" and "New Tab Here (Background)" commands
 - **v1.5**: Chrome Web Store release
 - **v1.4**: Added prevent tab close feature
 - **v1.3**: Added GitHub relative time to absolute time conversion feature
