@@ -10,6 +10,12 @@ Duplicate Tab
 Creates a copy of the current tab.
 Default shortcut: Ctrl+Shift+D (Mac: Control+Shift+D)
 
+New Tab Here
+Opens a new tab immediately after the current one and links it as the opener — closing the new tab returns focus to the original tab you were on. Configure your own shortcut via chrome://extensions/shortcuts.
+
+New Tab Here (Background)
+Same as New Tab Here, but the new tab opens in the background without stealing focus from what you're reading. Configure your own shortcut via chrome://extensions/shortcuts.
+
 Prevent Tab Close
 Prevents the current tab from being accidentally closed. Toggle it on, and Chrome will ask for confirmation before closing the tab. Configure your own shortcut via chrome://extensions/shortcuts.
 
@@ -24,6 +30,8 @@ HOW TO USE
 All features are accessible via:
 – Keyboard shortcuts (configurable at chrome://extensions/shortcuts)
 – The extension popup (click the extension icon)
+
+On first install, if Chrome can't bind the default shortcuts (typically because another installed extension already claims the same chord), the shortcuts page opens automatically so you can assign your own.
 
 WORKS WELL WITH DEFAULT CHROME SHORTCUTS
 
