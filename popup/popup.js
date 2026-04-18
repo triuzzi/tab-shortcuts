@@ -94,6 +94,14 @@ function setupButtonHandlers() {
             window.close();
         });
     }
+
+    const repoLink = document.getElementById('repoLink');
+    if (repoLink) {
+        repoLink.addEventListener('click', () => {
+            chrome.tabs.create({ url: 'https://github.com/triuzzi/tab-shortcuts' });
+            window.close();
+        });
+    }
 }
 
 function executeDuplicateTab() {
