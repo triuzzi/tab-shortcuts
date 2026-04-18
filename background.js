@@ -77,6 +77,19 @@ chrome.commands.onCommand.addListener(async (command) => {
     }
 });
 
+chrome.runtime.onInstalled.addListener(async (details) => {
+    if (details.reason !== 'install') return;
+    const commands = await chrome.commands.getAll();
+    const manifestCommands = chrome.runtime.getManifest().commands || {};
+    const anyUnboundSuggestedKey = commands.some((cmd) => {
+        const entry = manifestCommands[cmd.name];
+        return entry && entry.suggested_key && !cmd.shortcut;
+    });
+    if (anyUnboundSuggestedKey) {
+        chrome.tabs.create({ url: 'chrome://extensions/shortcuts' });
+    }
+});
+
 chrome.runtime.onMessage.addListener((message) => {
     if (message.command) {
         switch (message.command) {
