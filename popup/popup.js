@@ -13,7 +13,13 @@ function loadCurrentShortcuts() {
                 if (buttonElement) {
                     const shortcutSpan = buttonElement.querySelector('.keyboard');
                     if (shortcutSpan) {
-                        shortcutSpan.textContent = command.shortcut || "Not set";
+                        if (command.shortcut) {
+                            shortcutSpan.textContent = command.shortcut;
+                            shortcutSpan.classList.remove('unbound');
+                        } else {
+                            shortcutSpan.textContent = '<unbound>';
+                            shortcutSpan.classList.add('unbound');
+                        }
                     }
                 }
             });
