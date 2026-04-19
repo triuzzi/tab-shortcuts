@@ -1,6 +1,6 @@
 {
   "author": "Emanuele Triuzzi",
-  "description": "Adds keyboard shortcuts for duplicating tabs, pinning tabs, opening new tabs next to the current one, preventing tab close, collapsing translation files, and converting relative time to absolute time on GitHub. No internet access needed.",
+  "description": "Keyboard shortcuts for tabs and GitHub: duplicate, pin, new-tab-here, prevent close, collapse i18n, absolute time. No network.",
   "name": "Tab Shortcuts",
   "version": "1.7",
 
