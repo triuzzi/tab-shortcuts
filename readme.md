@@ -63,8 +63,7 @@ This extension uses:
 
 ## 📋 Version History
 
-- **v1.8**: New "no mouse → keyboard" icon in light-terminal style with mac window chrome; minimal "no mouse" variant at 16px
-- **v1.7**: Redesigned popup with white theme and readable kbd-style shortcut chips; onboarding opens the shortcuts page on install when default bindings can't be set
+- **v1.7**: New "no mouse → keyboard" icon in light-terminal style with mac window chrome (minimal "no mouse" variant at 16px); redesigned popup with white theme and readable kbd-style shortcut chips; onboarding opens the shortcuts page on install when default bindings can't be set
 - **v1.6**: Added "New Tab Here" and "New Tab Here (Background)" commands
 - **v1.5**: Chrome Web Store release
 - **v1.4**: Added prevent tab close feature
